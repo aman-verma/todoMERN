@@ -1,0 +1,124 @@
+/* Global Styles */
+:root {
+  --light-orange: #ffe5b4;
+  --light-gray: #e9ecef;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+.mainContainer {
+  margin-left: 0px;
+  position: initial;
+  min-height: calc(100vh - 60px);
+  padding: 1rem;
+  margin-top: 60px;
+  background-color: var(--bs-light);
+}
+
+.mainContainer.open {
+  margin-left: 250px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+.form-container form{
+  padding: 10px;
+}
+
+.form-container h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+.login input,
+.register input {
+  margin: 1.2rem 0;
+}
+
+.form-text {
+  display: block;
+  margin-top: 0.3rem;
+  color: #888;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='date'],
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+
+input[type='submit'],
+button {
+  font: inherit;
+}
+
+.compContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: 0.25rem;
+  border: none;
+  line-height: 1.25rem;
+  color: #000;
+  letter-spacing: 0.0178571429em;
+  font-size: 0.875rem;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.compContainer-header {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  padding: 1rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.compContainer-header-title {
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  font-size: 1.5rem;
+}
+
+.compContainer-body {
+  flex: 1 1 auto;
+}
+
+.btn-icon {
+  border-radius: 50%;
+}
+
+@media (max-width: 769px) {
+  .mainContainer,
+  .mainContainer.open {
+    margin-left: 0px;
+  }
+}

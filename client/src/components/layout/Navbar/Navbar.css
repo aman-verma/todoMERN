@@ -1,0 +1,23 @@
+nav {
+  position: relative;
+  z-index: 1020;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+}
+
+nav .nav-link {
+  color: #000;
+}
+
+nav form.input-group {
+  width: 400px;
+}
+
+@media (max-width: 576px) {
+  nav .navbar-brand {
+    display: none;
+  }
+  nav form.input-group {
+    width: auto;
+  }
+}
