@@ -6,7 +6,6 @@ const AddTaskModal = () => {
       <div
         className='modal fade'
         id='exampleModal'
-        tabindex='-1'
         aria-labelledby='exampleModalLabel'
         aria-hidden='true'
       >
@@ -26,7 +25,7 @@ const AddTaskModal = () => {
             <div className='modal-body'>
               <form>
                 <div className='mb-3'>
-                  <label for='recipient-name' className='col-form-label'>
+                  <label htmlFor='recipient-name' className='col-form-label'>
                     Start:
                   </label>
                   <input
@@ -36,7 +35,7 @@ const AddTaskModal = () => {
                   />
                 </div>
                 <div className='mb-3'>
-                  <label for='recipient-name' className='col-form-label'>
+                  <label htmlFor='recipient-name' className='col-form-label'>
                     End:
                   </label>
                   <input
@@ -46,7 +45,7 @@ const AddTaskModal = () => {
                   />
                 </div>
                 <div className='mb-3'>
-                  <label for='recipient-name' className='col-form-label'>
+                  <label htmlFor='recipient-name' className='col-form-label'>
                     Title:
                   </label>
                   <input
@@ -56,7 +55,7 @@ const AddTaskModal = () => {
                   />
                 </div>
                 <div className='mb-3'>
-                  <label for='message-text' className='col-form-label'>
+                  <label htmlFor='message-text' className='col-form-label'>
                     Desciption:
                   </label>
                   <textarea

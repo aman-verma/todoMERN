@@ -1,15 +1,15 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import TaskItem from './TaskItem';
 import AddTaskModal from './AddTaskModal';
 
-const Tasks = () => {
-  const tasks = [
-    { id: 1, title: 'Task 1', description: 'Task 1 description' },
-    { id: 2, title: 'Task 2', description: 'Task 2 description' },
-    { id: 3, title: 'Task 3', description: 'Task 3 description' },
-    { id: 4, title: 'Task 4', description: 'Task 4 description' },
-  ];
+import { connect } from 'react-redux';
+import { getContacts } from '../../../actions/taskActions';
+
+const Tasks = ({ getContacts, auth, tasks }) => {
+  useEffect(() => {
+    getContacts();
+  }, [tasks]);
+
   return (
     <>
       <AddTaskModal />
@@ -31,9 +31,9 @@ const Tasks = () => {
             </div>
           </div>
         </div>
-        <div class='compContainer-body p-4'>
+        <div className='compContainer-body p-4'>
           {tasks.map((task) => {
-            return <TaskItem key={task.id} task={task} />;
+            return <TaskItem key={task._id} task={task} />;
           })}
         </div>
       </div>
@@ -41,4 +41,9 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+const mapStateToProps = (state) => ({
+  tasks: state.task.tasks,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { getContacts })(Tasks);
