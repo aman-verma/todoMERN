@@ -8,7 +8,7 @@ import { getContacts } from '../../../actions/taskActions';
 const Tasks = ({ getContacts, auth, tasks }) => {
   useEffect(() => {
     getContacts();
-  }, [tasks]);
+  }, []);
 
   return (
     <>

@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AddTaskModal = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   return (
     <>
       <div
@@ -26,22 +31,33 @@ const AddTaskModal = () => {
               <form>
                 <div className='mb-3'>
                   <label htmlFor='recipient-name' className='col-form-label'>
-                    Start:
+                    Start Date:
                   </label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='recipient-name'
+                  <DatePicker
+                    popperPlacement='bottom'
+                    selected={startDate}
+                    onChange={(date: Date) => setStartDate(date)}
+                    showTimeSelect
+                    dateFormat='d MMMM  yyyy - HH:mm'
+                    timeFormat='p'
+                    timeIntervals={15}
                   />
                 </div>
                 <div className='mb-3'>
                   <label htmlFor='recipient-name' className='col-form-label'>
-                    End:
+                    End Date:
                   </label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='recipient-name'
+                  <DatePicker
+                    popperPlacement='bottom'
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    showTimeSelect
+                    dateFormat='d MMMM  yyyy - HH:mm'
+                    timeFormat='p'
+                    timeIntervals={15}
                   />
                 </div>
                 <div className='mb-3'>
