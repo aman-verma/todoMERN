@@ -3,11 +3,11 @@ import TaskItem from './TaskItem';
 import AddTaskModal from './AddTaskModal';
 
 import { connect } from 'react-redux';
-import { getContacts } from '../../../actions/taskActions';
+import { getTasks } from '../../../actions/taskActions';
 
-const Tasks = ({ getContacts, auth, tasks }) => {
+const Tasks = ({ getTasks, auth, tasks }) => {
   useEffect(() => {
-    getContacts();
+    getTasks();
   }, []);
 
   return (
@@ -46,4 +46,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getContacts })(Tasks);
+export default connect(mapStateToProps, { getTasks })(Tasks);
