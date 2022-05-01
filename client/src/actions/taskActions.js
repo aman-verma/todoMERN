@@ -32,19 +32,20 @@ export const getTasks = () => async (dispatch) => {
 };
 
 //ADD TASK
-export const addtask = (task) => async (dispatch) => {
+export const addTask = (task) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   try {
-    const res = await axios.post('/api/task', task, config);
+    const res = await axios.post('/api/tasks', task, config);
     dispatch({
       type: ADD_TASK,
       payload: res.data,
     });
   } catch (error) {
+    console.log(error.response);
     dispatch({
       type: TASK_ERROR,
       payload: error.response.msg,

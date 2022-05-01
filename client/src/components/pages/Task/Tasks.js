@@ -24,7 +24,7 @@ const Tasks = ({ getTasks, auth, tasks }) => {
                 className='btn btn-md btn-primary btn-icon'
                 type='button'
                 data-bs-toggle='modal'
-                data-bs-target='#exampleModal'
+                data-bs-target='#addModal'
               >
                 <i className='fa fa-plus'></i>
               </button>

@@ -23,12 +23,14 @@ export default (state = initialState, action) => {
         ...state,
         tasks: action.payload,
         loading: false,
+        error: null,
       };
     case ADD_TASK:
       return {
         ...state,
         tasks: [action.payload, ...state.tasks],
         loading: false,
+        error: null,
       };
     case DELETE_TASK:
       return {
@@ -37,6 +39,7 @@ export default (state = initialState, action) => {
           return task._id !== action.payload;
         }),
         loading: false,
+        error: null,
       };
     case SET_CURRENT_TASK:
       return {
