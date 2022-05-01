@@ -48,7 +48,7 @@ export const addTask = (task) => async (dispatch) => {
     console.log(error.response);
     dispatch({
       type: TASK_ERROR,
-      payload: error.response.msg,
+      payload: error.response.data.errors,
     });
   }
 };
