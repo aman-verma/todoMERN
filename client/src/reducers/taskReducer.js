@@ -5,6 +5,7 @@ import {
   DELETE_TASK,
   SET_CURRENT_TASK,
   UPDATE_TASK,
+  DONE_TASK,
   CLEAR_CURRENT_TASK,
 } from '../actions/types';
 
@@ -17,6 +18,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case GET_TASKS:
       return {
@@ -35,7 +37,7 @@ export default (state = initialState, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        contacts: state.contacts.filter((task) => {
+        tasks: state.tasks.filter((task) => {
           return task._id !== action.payload;
         }),
         loading: false,
@@ -51,10 +53,15 @@ export default (state = initialState, action) => {
         ...state,
         current: null,
       };
+    case DONE_TASK:
+      return {
+        ...state,
+        current: 'done',
+      };
     case UPDATE_TASK:
       return {
         ...state,
-        contacts: state.contacts.map((task) => {
+        tasks: state.tasks.map((task) => {
           return task._id === action.payload._id ? action.payload : task;
         }),
         loading: false,

@@ -7,6 +7,7 @@ import {
   ADD_TASK,
   DELETE_TASK,
   SET_CURRENT_TASK,
+  DONE_TASK,
   UPDATE_TASK,
   CLEAR_CURRENT_TASK,
 } from './types';
@@ -54,9 +55,10 @@ export const addTask = (task) => async (dispatch) => {
 };
 
 //DELETE TASK
-const deleteTask = (id) => async (dispatch) => {
+export const deleteTask = (id) => async (dispatch) => {
+  console.log(id);
   try {
-    await axios.delete(`/api/contacts/${id}`);
+    await axios.delete(`/api/tasks/${id}`);
     dispatch({
       type: DELETE_TASK,
       payload: id,
@@ -70,32 +72,34 @@ const deleteTask = (id) => async (dispatch) => {
 };
 
 //UPDATE TASK
-const updateTask = (task) => async (dispatch) => {
+export const updateTask = (task) => async (dispatch) => {
+  console.log(task);
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   try {
-    const res = await axios.put(`/api/contacts/${task._id}`, task, config);
+    const res = await axios.put(`/api/tasks/${task._id}`, task, config);
     dispatch({
       type: UPDATE_TASK,
       payload: res.data,
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: TASK_ERROR,
-      payload: error.response.msg,
+      payload: error.response.data.errors,
     });
   }
 };
 
-//SET CURRENT CONTACTS
-const setCurrentTask = (task) => async (dispatch) => {
+export const setCurrentTask = (task) => (dispatch) => {
   dispatch({ type: SET_CURRENT_TASK, payload: task });
 };
 
 //CLEAR CURRENT CONTACTS
-const clearCurrentTask = () => async (dispatch) => {
+export const clearCurrentTask = () => (dispatch) => {
+  console.log('clearCurrentTask action');
   dispatch({ type: CLEAR_CURRENT_TASK });
 };

@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { connect } from 'react-redux';
-import { addTask } from '../../../actions/taskActions';
+import {
+  addTask,
+  clearCurrentTask,
+  updateTask,
+} from '../../../actions/taskActions';
 
-const AddTaskModal = ({ addTask }) => {
+const AddTaskModal = ({ addTask, clearCurrentTask, updateTask, current }) => {
   const [from, setFromDate] = useState(new Date());
   const [to, setToDate] = useState(new Date());
-
   const [formValues, setFormValues] = useState({
     title: '',
     description: '',
   });
+
+  useEffect(() => {
+    if (current != null) {
+      console.log(current);
+      setFormValues(current);
+      setFromDate(new Date(current.from));
+      setToDate(new Date(current.to));
+    } else {
+      setFormValues({
+        title: '',
+        description: '',
+      });
+      setFromDate(new Date());
+      setToDate(new Date());
+    }
+  }, [current]);
 
   const handleErrors = (formValues) => {
     console.log(formValues);
@@ -35,31 +54,33 @@ const AddTaskModal = ({ addTask }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      ...formValues,
-      from: from.toString(),
-      to: to.toString(),
-    });
-    console.log('submit', formValues);
-    addTask({
-      ...formValues,
-      from: from.toString(),
-      to: to.toString(),
-    });
-    // addTask({
-    //   title: 'Post test 2 updated',
-    //   description: 'Post test description',
-    //   from: '2022-04-12T19:15:00.937Z',
-    //   to: '2022-04-01T19:11:44.000Z',
-    //   status: 'Pending',
-    // });
+    if (current === null) {
+      console.log('submit', formValues);
+      addTask({
+        ...formValues,
+        from: from.toString(),
+        to: to.toString(),
+      });
+    } else {
+      console.log('submit', formValues);
+
+      updateTask({
+        ...formValues,
+        from: from.toString(),
+        to: to.toString(),
+      });
+    }
+    clearCurrentTask();
+  };
+
+  const clearAll = () => {
+    clearCurrentTask();
   };
 
   return (
@@ -73,18 +94,19 @@ const AddTaskModal = ({ addTask }) => {
         <div className='modal-dialog modal-lg modal-dialog-centered'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='exampleModalLabel'>
-                ADD Task
+              <h5 className='modal-title text-primary' id='exampleModalLabel'>
+                {current ? 'Edit Task' : 'Add Task'}
               </h5>
               <button
                 type='button'
                 className='btn-close'
                 data-bs-dismiss='modal'
                 aria-label='Close'
+                onClick={clearAll}
               ></button>
             </div>
             <div className='modal-body'>
-              <form>
+              <form onSubmit={onSubmit}>
                 <div className='mb-3'>
                   <label htmlFor='recipient-name' className='col-form-label'>
                     Start Date:
@@ -123,6 +145,7 @@ const AddTaskModal = ({ addTask }) => {
                   <input
                     type='text'
                     name='title'
+                    value={formValues.title}
                     onChange={handleChange}
                     className='form-control'
                     id='title'
@@ -134,18 +157,23 @@ const AddTaskModal = ({ addTask }) => {
                   </label>
                   <textarea
                     name='description'
+                    value={formValues.description}
                     onChange={handleChange}
                     className='form-control'
                     id='description'
                   ></textarea>
                 </div>
-                <button
-                  type='button'
-                  className='btn btn-primary'
-                  onClick={onSubmit}
-                >
-                  Save changes
+                <button type='submit' className='btn btn-primary'>
+                  {current ? 'Update Task' : 'Add Task'}
                 </button>
+                {current && (
+                  <button
+                    className='btn btn-light btn-block'
+                    onClick={clearAll}
+                  >
+                    Clear
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -157,6 +185,12 @@ const AddTaskModal = ({ addTask }) => {
 
 AddTaskModal.propTypes = {};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  current: state.task.current,
+});
 
-export default connect(mapStateToProps, { addTask })(AddTaskModal);
+export default connect(mapStateToProps, {
+  addTask,
+  clearCurrentTask,
+  updateTask,
+})(AddTaskModal);
